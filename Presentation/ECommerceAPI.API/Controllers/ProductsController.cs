@@ -1,4 +1,5 @@
 ﻿using ECommerceAPI.Application.Repositories.ProductRepos;
+using ECommerceAPI.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,13 +20,17 @@ namespace ECommerceAPI.API.Controllers
 		[HttpGet]
 		public async Task Get()
 		{
-			await _productWriteRepository.AddRangeAsync(new()
-			{
-				new() { CreatedDate = DateTime.UtcNow, Id = Guid.NewGuid(), Name = "Product1", Price = 100, Stock = 10 },
-				new() { CreatedDate = DateTime.UtcNow, Id = Guid.NewGuid(), Name = "Product2", Price = 200, Stock = 20 },
-				new() { CreatedDate = DateTime.UtcNow, Id = Guid.NewGuid(), Name = "Product3", Price = 300, Stock = 30 },
-			});
-			var count = await _productWriteRepository.SaveAsync();
+			//await _productWriteRepository.AddRangeAsync(new()
+			//{
+			//	new() { CreatedDate = DateTime.UtcNow, Id = Guid.NewGuid(), Name = "Product1", Price = 100, Stock = 10 },
+			//	new() { CreatedDate = DateTime.UtcNow, Id = Guid.NewGuid(), Name = "Product2", Price = 200, Stock = 20 },
+			//	new() { CreatedDate = DateTime.UtcNow, Id = Guid.NewGuid(), Name = "Product3", Price = 300, Stock = 30 },
+			//});
+			//var count = await _productWriteRepository.SaveAsync();
+
+			var p = await _productReadRepository.GetByIdAsync("7654a6ae-f9d9-48a7-a6ef-12c18ba052a9", false);
+			p.Name = "mehmet";
+			await _productWriteRepository.SaveAsync();
 		}
 
 	}
